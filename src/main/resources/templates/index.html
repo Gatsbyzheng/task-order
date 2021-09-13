@@ -1,127 +1,75 @@
 <!DOCTYPE html>
-<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
   <!-- 必须的 meta 标签 -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Bootstrap 的 CSS 文件 -->
   <link href="/css/bootstrap.min.css" rel="stylesheet">
-  <title>Hello, world!</title>
+  <title th:text="${title}"></title>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarColor01">
-      <ul class="navbar-nav me-auto">
-        <li class="nav-item">
-          <a class="nav-link active" href="#">Home
-            <span class="visually-hidden">(current)</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Features</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Pricing</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">About</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Separated link</a>
-          </div>
-        </li>
-      </ul>
-      <form class="d-flex">
-        <input class="form-control me-sm-2" type="text" placeholder="Search">
-        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-      </form>
+<div class="container">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">外协管理系统</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" th:classappend="${title == '首页'} ? 'active' : ''" href="/">首页</a>
+          </li>
+          <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
+            <a class="nav-link" th:classappend="${title == '项目管理'} ? 'active' : ''" href="/project">项目管理</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" th:classappend="${title == '订单管理'} ? 'active' : ''" href="/order">订单管理</a>
+          </li>
+          <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
+            <a class="nav-link" th:classappend="${title == '用户管理'} ? 'active' : ''" href="/userDO">用户管理</a>
+          </li>
+          <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
+            <a class="nav-link" th:classappend="${title == '系统日志'} ? 'active' : ''" href="/log">系统日志</a>
+          </li>
+        </ul>
+        你好，
+        <span class="navbar-text" sec:authentication="name">
+      </span>
+        <a type="button" class="btn btn-link" href="/logout">退出</a>
+      </div>
     </div>
+  </nav>
+  <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="/img/lost-weight.jpeg" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="/img/work.jpeg" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="/img/different.jpeg" class="d-block w-100" alt="...">
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
   </div>
-</nav>
-<table class="table table-hover">
-  <thead>
-  <tr>
-    <th scope="col">Type</th>
-    <th scope="col">Column heading</th>
-    <th scope="col">Column heading</th>
-    <th scope="col">Column heading</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr class="table-active">
-    <th scope="row">Active</th>
-    <td>Column content</td>
-    <td>Column content</td>
-    <td>Column content</td>
-  </tr>
-  <tr>
-    <th scope="row">Default</th>
-    <td>Column content</td>
-    <td>Column content</td>
-    <td>Column content</td>
-  </tr>
-  <tr class="table-primary">
-    <th scope="row">Primary</th>
-    <td>Column content</td>
-    <td>Column content</td>
-    <td>Column content</td>
-  </tr>
-  <tr class="table-secondary">
-    <th scope="row">Secondary</th>
-    <td>Column content</td>
-    <td>Column content</td>
-    <td>Column content</td>
-  </tr>
-  <tr class="table-success">
-    <th scope="row">Success</th>
-    <td>Column content</td>
-    <td>Column content</td>
-    <td>Column content</td>
-  </tr>
-  <tr class="table-danger">
-    <th scope="row">Danger</th>
-    <td>Column content</td>
-    <td>Column content</td>
-    <td>Column content</td>
-  </tr>
-  <tr class="table-warning">
-    <th scope="row">Warning</th>
-    <td>Column content</td>
-    <td>Column content</td>
-    <td>Column content</td>
-  </tr>
-  <tr class="table-info">
-    <th scope="row">Info</th>
-    <td>Column content</td>
-    <td>Column content</td>
-    <td>Column content</td>
-  </tr>
-  <tr class="table-light">
-    <th scope="row">Light</th>
-    <td>Column content</td>
-    <td>Column content</td>
-    <td>Column content</td>
-  </tr>
-  <tr class="table-dark">
-    <th scope="row">Dark</th>
-    <td>Column content</td>
-    <td>Column content</td>
-    <td>Column content</td>
-  </tr>
-  </tbody>
-</table>
+</div>
+
 <!-- 包含 Popper 的 Bootstrap 集成包 -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

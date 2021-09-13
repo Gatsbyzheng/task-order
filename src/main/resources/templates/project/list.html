@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <!-- 必须的 meta 标签 -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap 的 CSS 文件 -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <title th:text="${title}"></title>
+</head>
+<body>
+
+<div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">外协管理系统</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" th:classappend="${title == '首页'} ? 'active' : ''" href="/">首页</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a class="nav-link" th:classappend="${title == '项目管理'} ? 'active' : ''" href="/project">项目管理</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:classappend="${title == '订单管理'} ? 'active' : ''" href="/order">订单管理</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a class="nav-link" th:classappend="${title == '用户管理'} ? 'active' : ''" href="/userDO">用户管理</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a class="nav-link" th:classappend="${title == '系统日志'} ? 'active' : ''" href="/log">系统日志</a>
+                    </li>
+                </ul>
+                你好，
+                <span class="navbar-text" sec:authentication="name">
+      </span>
+                <a type="button" class="btn btn-link" href="/logout">退出</a>
+            </div>
+        </div>
+    </nav>
+    <button type="button" class="btn btn-outline-primary">新增</button>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">项目编号</th>
+            <th scope="col">项目名称</th>
+            <th scope="col">项目预算</th>
+            <th scope="col">预算剩余</th>
+            <th scope="col">预算执行率</th>
+            <th scope="col">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th scope="row">1</th>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+            <td>@mdo</td>
+            <td>@mdo</td>
+            <td>
+                <button type="button" class="btn btn-outline-success">编辑</button>
+                <button type="button" class="btn btn-outline-danger">删除</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- 包含 Popper 的 Bootstrap 集成包 -->
+<script src="/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
